@@ -1,0 +1,36 @@
+{
+  "name": "big-data-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-p start:administrator start:manager start:manager",
+    "start:administrator": "node ./administrator.js",
+    "start:manager": "node ./manager.js",
+    "start:worker": "node ./worker.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makamekm/big-data-test.git"
+  },
+  "keywords": [
+    "big",
+    "data",
+    "node"
+  ],
+  "author": "makamekm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/makamekm/big-data-test/issues"
+  },
+  "homepage": "https://github.com/makamekm/big-data-test#readme",
+  "dependencies": {
+    "hyperswarm": "^2.14.0",
+    "ndjson": "^1.5.0",
+    "pump": "^3.0.0",
+    "safe-eval": "^0.4.1"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
