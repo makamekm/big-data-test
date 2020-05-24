@@ -20,21 +20,12 @@ module.exports = ({ key, isMain, onConnection, onDisconnection, protocol }) => {
   const topic = topicGen(key);
 
   swarm.on("connection", (socket, details) => {
-    // if (details.type !== protocol) {
-    //   details.backoff();
-    //   socket.destroy();
-    //   return;
-    // }
     if (details.type === protocol) {
       onConnection && onConnection(socket, details);
     }
-    // process.stdin.pipe(socket).pipe(process.stdout)
   });
 
   swarm.on("disconnection", (socket, details) => {
-    // if (details.type !== protocol) {
-    //   return;
-    // }
     if (details.type === protocol) {
       onDisconnection && onDisconnection(socket, details);
     }

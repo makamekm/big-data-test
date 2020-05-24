@@ -1,24 +1,41 @@
+const argv = require("yargs").argv;
 const createAdministratorClient = require("./communication");
+const createStorage = require("./storage");
 
 const run = async () => {
-  const administrator = createAdministratorClient({
-    key: "administration",
-    isMain: false,
-    minConnections: 1,
-    onData: (data, connection) => {
-      console.log("data from administrator", data);
-    },
-    onConnection: (connection) => {
-      console.log("connected with an administrator");
-    },
-    onDisconnection: (connection) => {
-      console.log("disconnected with an administrator");
-    },
+  // const administrator = createAdministratorClient({
+  //   key: "administration",
+  //   isMain: false,
+  //   minConnections: 1,
+  //   onData: (data, connection) => {
+  //     console.log("data from administrator", data);
+  //   },
+  //   onConnection: (connection) => {
+  //     console.log("connected with an administrator");
+  //   },
+  //   onDisconnection: (connection) => {
+  //     console.log("disconnected with an administrator");
+  //   },
+  // });
+
+  // await administrator.waitForMinConnections();
+
+  // administrator.outcomeToAll.write({ foo: "I am a manager!" });
+
+  const { storage } = await createStorage({
+    key: "manager-storage",
+    name: argv.name,
   });
 
-  await administrator.waitForMinConnections();
-
-  administrator.outcomeToAll.write({ foo: "I am a manager!" });
+  setInterval(() => {
+    console.log(argv.name, "here");
+    storage.put("test", String(Math.random().toFixed(4) * 1000));
+    setTimeout(() => {
+      console.log(argv.name, "here");
+      storage.get("test", (...args) => console.log(argv.name, ...args));
+    }, 500);
+    // writeOperation({ test: "sdfsdf" });
+  }, 2000);
 
   // const io = {};
 
